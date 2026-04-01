@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prashna-chakra-v10.1.3';
+const CACHE_NAME = 'prashna-chakra-v10.1.4';
 const urlsToCache = [
     './',
     './index.html',
@@ -6,7 +6,8 @@ const urlsToCache = [
     './data.json',
     './icons/icon-192.png',
     './icons/icon-512.png',
-    './manifest.json'
+    './manifest.json',
+    './Questions.json',
 ];
 
 self.addEventListener('install', event => {
