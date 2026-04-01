@@ -2,150 +2,466 @@
 <html lang="kn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#b33939">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#7a1a1a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<title>Prashna Chakra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;600;700&family=Noto+Serif+Telugu:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<title>ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ</title>
 
 <style>
+:root {
+  --crimson:   #7a1a1a;
+  --crimson-d: #4e0f0f;
+  --crimson-l: #b33939;
+  --saffron:   #d4622a;
+  --gold:      #c8922a;
+  --gold-l:    #f0c060;
+  --parchment: #f5e8c8;
+  --cream:     #fdf6e8;
+  --ink:       #2d1200;
+  --muted:     #7a5c3a;
+  --border:    rgba(200,146,42,0.35);
+  --shadow:    rgba(74,20,0,0.22);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    text-align: center;
-    font-family: Arial;
-    background: #f5f5f5;
+  font-family: 'Noto Serif Kannada', 'Noto Serif Telugu', Georgia, serif;
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(ellipse 80% 55% at 50% 0%, rgba(212,98,42,0.09) 0%, transparent 65%),
+    url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 2L46 24L24 46L2 24Z' fill='none' stroke='%23c8922a' stroke-width='0.5' stroke-opacity='0.12'/%3E%3C/svg%3E");
+  min-height: 100vh;
+  color: var(--ink);
+  overflow-x: hidden;
 }
 
-img {
-    width: 600px;
-    margin-top: 20px;
+/* ─── HEADER ─── */
+.site-header {
+  background: linear-gradient(180deg, var(--crimson-d) 0%, var(--crimson) 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-#resultBox {
-    margin-top: 30px;
-    padding: 20px;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
-    font-size: 18px;
-    line-height: 1.5;
+.header-deco-top {
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 7px;
+  color: var(--gold-l);
+  padding: 5px 0;
+  opacity: 0.6;
 }
 
-select {
-    padding: 12px;
-    font-size: 16px;
-    margin: 10px 0 20px 0;
-    width: 80%;
-    max-width: 400px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px 18px;
+  gap: 8px;
 }
 
-#resetBtn {
-    margin-top: 20px;
-    padding: 12px 24px;
-    font-size: 16px;
-    background-color: #b33939;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
+.header-center { flex: 1; text-align: center; }
+
+.om-symbol {
+  font-size: 26px;
+  color: var(--gold-l);
+  display: block;
+  margin-bottom: 3px;
+  animation: glowPulse 3.5s ease-in-out infinite;
 }
 
-#resetBtn:hover {
-    background-color: #8f2d2d;
+@keyframes glowPulse {
+  0%,100% { text-shadow: 0 0 8px rgba(240,192,96,0.5); }
+  50% { text-shadow: 0 0 22px rgba(240,192,96,1), 0 0 40px rgba(212,98,42,0.5); }
 }
 
-#instructionText {
-    font-size: 18px;
-    color: #b33939;
-    font-weight: bold;
-    margin-bottom: 10px;
+#chakraTitle {
+  font-family: 'Cinzel Decorative', Georgia, serif;
+  font-size: clamp(13px, 4vw, 20px);
+  color: var(--gold-l);
+  font-weight: 700;
+  line-height: 1.3;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-#langSelector {
-    text-align: right;
-    padding: 10px 20px;
+.header-bottom-border {
+  height: 5px;
+  background: repeating-linear-gradient(90deg,
+    var(--gold-l) 0px, var(--gold-l) 6px,
+    var(--gold) 6px, var(--gold) 12px,
+    var(--saffron) 12px, var(--saffron) 18px,
+    var(--gold) 18px, var(--gold) 24px
+  );
 }
 
+/* Language selector */
 #langSelect {
-    padding: 8px;
-    font-size: 14px;
-    width: auto;
-    margin: 0;
-    border-radius: 5px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(200,146,42,0.45);
+  color: var(--gold-l);
+  font-size: 12px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+#langSelect option { background: var(--crimson-d); color: var(--gold-l); }
+
+/* ─── MAIN ─── */
+.main-wrap {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 12px 16px 70px;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#step1, #step2, #step3 {
+  animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ─── DECORATIVE DIVIDER ─── */
+.divider {
+  display: flex; align-items: center; gap: 8px;
+  justify-content: center;
+  color: var(--gold); font-size: 13px;
+  padding: 10px 0;
+}
+.divider::before,.divider::after {
+  content:''; flex:1; max-width:70px; height:1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ─── STEP 1: SELECT CARD ─── */
+.select-card {
+  background: linear-gradient(150deg, #fffef8, #fdf0d0);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px 18px;
+  box-shadow: 0 4px 20px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.8);
+  position: relative;
+}
+.select-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:4px;
+  border-radius:16px 16px 0 0;
+  background: linear-gradient(90deg, var(--crimson-d), var(--saffron), var(--gold-l), var(--saffron), var(--crimson-d));
+}
+.select-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+#chakraSelect {
+  width: 100%;
+  padding: 13px 42px 13px 14px;
+  font-size: 14.5px;
+  font-family: 'Noto Serif Kannada','Noto Serif Telugu', Georgia, serif;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l6 7 6-7' stroke='%23c8922a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+#chakraSelect:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200,146,42,0.18);
+}
+
+/* ─── STEP 2: INSTRUCTION BOX ─── */
+.instruction-box {
+  background: linear-gradient(135deg, rgba(122,26,26,0.05), rgba(200,146,42,0.08));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 15px;
+  margin: 12px 0 10px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--crimson-d);
+}
+.inst-line { display:flex; align-items:flex-start; gap:8px; margin-bottom:4px; }
+.inst-line:last-child { margin-bottom:0; }
+.inst-icon { font-size:15px; flex-shrink:0; margin-top:1px; }
+
+/* ─── CHAKRA IMAGE ─── */
+.chakra-wrapper {
+  position: relative;
+  margin: 6px auto 4px;
+  display: block;
+  width: min(460px, 90vw);
+  aspect-ratio: 1 / 1;
+}
+
+#chakraImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow:
+    0 10px 38px rgba(74,20,0,0.28);
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.8s ease-out;
+}
+#chakraImage:hover {
+  box-shadow:
+    0 0 0 4px var(--gold-l),
+    0 0 0 9px rgba(200,146,42,0.28),
+    0 14px 48px rgba(74,20,0,0.36);
+}
+
+@keyframes chakraSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(1800deg); }
+}
+
+#chakraImage.spin-animation {
+  animation: chakraSpin 5s cubic-bezier(0.1, 0.5, 0.2, 1.0); /* 5 sec rotation */
+  transition: transform 0.8s ease-out;
+  pointer-events: none;
+}
+
+.tap-hint {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 7px;
+  opacity: 0.8;
+}
+
+/* ─── STEP 3: RESULT ─── */
+.result-card {
+  background: linear-gradient(160deg, #fffef8, var(--parchment));
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  padding: 26px 20px;
+  margin: 12px 0;
+  box-shadow: 0 8px 30px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.9);
+  position: relative;
+}
+.result-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:4px;
+  border-radius:18px 18px 0 0;
+  background: linear-gradient(90deg, var(--crimson-d), var(--saffron), var(--gold-l), var(--saffron), var(--crimson-d));
+}
+.result-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+.result-label::before,.result-label::after {
+  content:''; flex:1; height:1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+#resultBox {
+  font-size: clamp(14px, 3.8vw, 17px);
+  line-height: 1.85;
+  color: var(--ink);
+  text-align: center;
+}
+#resultBox strong {
+  color: var(--crimson);
+  font-size: 1.12em;
+  display: block;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+/* ─── RESET BUTTON ─── */
+#resetBtn {
+  display: block;
+  width: 100%; max-width: 400px;
+  margin: 16px auto 0;
+  padding: 15px 22px;
+  font-family: 'Noto Serif Kannada','Noto Serif Telugu', Georgia, serif;
+  font-size: 14.5px; font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--crimson), var(--crimson-d));
+  border: none; border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(122,26,26,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: transform 0.15s, box-shadow 0.15s;
+  position: relative; overflow: hidden;
+}
+#resetBtn::after {
+  content:'';
+  position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), transparent);
+  transition: left 0.4s;
+}
+#resetBtn:hover::after { left:100%; }
+#resetBtn:hover { transform:translateY(-2px); box-shadow:0 6px 24px rgba(122,26,26,0.45); }
+#resetBtn:active { transform:translateY(1px); }
+
+/* ─── INSTALL POPUP ─── */
+#installPopup {
+  display:none;
+  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  background: linear-gradient(160deg,#fffef5, var(--parchment));
+  padding:20px; border-radius:16px;
+  box-shadow:0 16px 48px rgba(0,0,0,0.22);
+  z-index:1000;
+  width:calc(100% - 32px); max-width:360px;
+  text-align:center;
+  border-top:4px solid var(--crimson);
+  animation: slideUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes slideUp {
+  from { opacity:0; transform:translate(-50%,18px); }
+  to   { opacity:1; transform:translate(-50%,0); }
+}
+#installPopup h3 { color:var(--crimson); font-size:16px; margin-bottom:6px; }
+#installPopup p  { color:var(--muted); font-size:13px; margin-bottom:14px; line-height:1.5; }
+.install-btns { display:flex; gap:10px; justify-content:center; }
+#btnInstall {
+  background: linear-gradient(135deg, var(--crimson), var(--crimson-d));
+  color:white; border:none; padding:10px 20px;
+  border-radius:8px; cursor:pointer; font-size:13.5px; font-weight:700; font-family:inherit;
+}
+#btnClosePopup {
+  background:var(--parchment); color:var(--muted);
+  border:1px solid var(--border); padding:10px 16px;
+  border-radius:8px; cursor:pointer; font-size:13.5px; font-family:inherit;
+}
+
+/* ─── FOOTER ─── */
+.disclaimer {
+  text-align:center; font-size:11px;
+  color:var(--muted); opacity:0.65;
+  margin-top:28px; line-height:1.6;
+}
+.footer-deco {
+  text-align:center; font-size:12px;
+  letter-spacing:5px; color:var(--gold);
+  padding:10px; opacity:0.45; margin-top:8px;
 }
 </style>
 </head>
-
 <body>
 
-<div id="langSelector">
+<header class="site-header">
+  <div class="logo-wrap">
+    <img src="./icon/logo.png" alt="ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ ಲೋಗೋ" loading="lazy" />
+  </div>
+  <div class="header-deco-top">❋ श्री ❋ श्री ❋ श्री ❋ ಶ್ರೀ ❋ श्री ❋</div>
+  <div class="header-inner">
+    <div style="width:52px"></div>
+    <div class="header-center">
+      <span class="om-symbol">श्री</span>
+      <h2 id="chakraTitle">ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ</h2>
+    </div>
     <select id="langSelect" onchange="changeLanguage(this.value)">
-        <option value="kn">ಕನ್ನಡ (Kannada)</option>
-        <option value="te">తెలుగు (Telugu)</option>
-        <option value="en">English</option>
-        <option value="sa">संस्कृतम् (Sanskrit)</option>
+      <option value="kn">ಕನ್ನಡ</option>
+      <option value="te">తెలుగు</option>
+      <option value="en">English</option>
+      <option value="sa">संस्कृतम्</option>
     </select>
-</div>
+  </div>
+  <div class="header-bottom-border"></div>
+</header>
 
-<h2 id="chakraTitle">ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ</h2>
+<main class="main-wrap">
 
-<div id="step1">
-    <select id="chakraSelect">
-        <option value="" id="defaultSelectOpt">-- ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಆರಿಸಿ (Select Question) --</option>
-    </select>
-</div>
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="divider">✦ ✦ ✦</div>
+    <div class="select-card">
+      <span class="select-label" id="selectLabel">ಪ್ರಶ್ನೆ ಆರಿಸಿ</span>
+      <select id="chakraSelect">
+        <option value="" id="defaultSelectOpt">-- ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಆರಿಸಿ --</option>
+      </select>
+    </div>
+    <div class="divider">✦ ✦ ✦</div>
+  </div>
 
-<div id="step2" style="display: none;">
-    <p id="instructionText" style="line-height: 1.6;">
-        <span id="instLine1">👉 ಭಗವಂತನನ್ನು ಸ್ಮರಿಸಿಕೊಂಡು ಈ ಕೆಳಗಿನ ಚಕ್ರದ ದಳಗಳ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.</span><br>
-        <span id="instLine2">👉 ಪ್ರತಿಯೊಂದು ದಳವು ವಿಭಿನ್ನ ಫಲಿತಾಂಶವನ್ನು ನೀಡುತ್ತದೆ.</span>
-    </p>
-    <!-- IMAGE -->
-    <img id="chakraImage" src="chakra.png" alt="ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ" usemap="#image-map">
+  <!-- STEP 2 -->
+  <div id="step2" style="display:none;">
+    <div class="instruction-box">
+      <div class="inst-line">
+        <span class="inst-icon">🙏</span>
+        <span id="instLine1">ಭಗವಂತನನ್ನು ಸ್ಮರಿಸಿಕೊಂಡು ಈ ಕೆಳಗಿನ ಚಕ್ರದ ದಳಗಳ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.</span>
+      </div>
+      <div class="inst-line">
+        <span class="inst-icon">🌸</span>
+        <span id="instLine2">ಪ್ರತಿಯೊಂದು ದಳವು ವಿಭಿನ್ನ ಫಲಿತಾಂಶವನ್ನು ನೀಡುತ್ತದೆ.</span>
+      </div>
+    </div>
 
-    <!-- IMAGE MAP -->
+    <div class="chakra-wrapper">
+      <img id="chakraImage" src="chakra.png" alt="ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ" usemap="#image-map">
+    </div>
+    <p class="tap-hint" id="tapHint">👆 ಚಕ್ರದ ದಳದ ಮೇಲೆ ಸ್ಪರ್ಶಿಸಿ</p>
+
     <map name="image-map">
-
-    <area shape="poly" coords="1652,1190,1546,1149,1457,1128,1365,1096,1264,1064,1196,1037,1200,992,1204,945,1295,915,1414,877,1501,848,1591,824,1655,805,1729,828,1791,858,1859,896,1903,935,1941,984,1926,1022,1852,1086,1744,1151,1684,1181" href="#" onclick="handleClick(event,1)">
-
-    <area shape="poly" coords="1172,1081,1189,1062,1244,1068,1304,1083,1376,1115,1425,1128,1502,1145,1578,1181,1640,1196,1688,1247,1714,1300,1735,1353,1757,1427,1763,1481,1691,1500,1638,1498,1576,1495,1495,1491,1421,1444,1366,1372,1306,1298,1232,1190,1178,1137,1155,1098" href="#" onclick="handleClick(event,2)">
-
-    <area shape="poly" coords="1195,1175,1230,1219,1263,1258,1295,1300,1334,1347,1368,1391,1404,1449,1425,1502,1423,1583,1408,1631,1399,1693,1363,1744,1346,1769,1295,1759,1227,1718,1174,1674,1132,1638,1089,1595,1074,1515,1072,1444,1070,1351,1064,1291,1068,1194,1072,1119,1100,1109,1144,1094" href="#" onclick="handleClick(event,3)">
-
-    <area shape="poly" coords="1059,1124,1062,1192,1051,1262,1055,1326,1061,1368,1061,1430,1066,1508,1068,1549,1049,1595,1025,1640,977,1691,898,1740,823,1776,772,1704,741,1616,724,1523,736,1476,790,1398,858,1300,919,1217,964,1153,1006,1107,1030,1109" href="#" onclick="handleClick(event,4)">
-
-    <area shape="poly" coords="972,1060,987,1081,987,1109,917,1198,857,1270,800,1345,747,1434,707,1481,562,1512,498,1512,430,1512,390,1498,390,1438,405,1360,430,1285,469,1211,515,1187,649,1149,753,1107,874,1062,949,1043" href="#" onclick="handleClick(event,5)">
-
-    <area shape="poly" coords="456,1177,364,1128,265,1064,207,996,228,958,296,896,358,852,433,822,498,809,569,830,647,848,743,884,826,915,898,939,953,954,953,994,955,1024,809,1069,736,1100,620,1136,517,1177" href="#" onclick="handleClick(event,6)">
-
-    <area shape="poly" coords="458,754,413,684,392,595,386,514,399,487,464,480,522,486,602,482,673,508,721,531,762,595,809,654,836,701,879,752,919,805,955,856,983,892,951,935,836,899,677,845,520,795,479,773" href="#" onclick="handleClick(event,7)">
-
-    <area shape="poly" coords="960,841,909,771,851,684,772,573,719,499,715,418,726,338,762,257,794,208,857,223,938,270,991,316,1061,393,1062,457,1059,574,1057,678,1057,767,1062,835,1053,864,1004,884" href="#" onclick="handleClick(event,8)">
-
-    <area shape="poly" coords="1072,854,1072,760,1077,625,1083,501,1074,399,1123,340,1193,280,1247,249,1312,217,1340,212,1374,272,1402,350,1419,419,1429,484,1419,522,1336,625,1240,758,1181,845,1145,890,1079,864" href="#" onclick="handleClick(event,9)">
-
-    <area shape="poly" coords="1164,888,1217,814,1306,703,1385,584,1453,501,1542,472,1659,459,1735,469,1756,480,1752,542,1737,641,1695,727,1655,790,1544,824,1425,862,1300,903,1200,935" href="#" onclick="handleClick(event,10)">
-
-    <!-- CENTER -->
-    <area shape="poly" coords="994,935,1025,905,1077,894,1115,907,1159,935,1176,984,1159,1032,1121,1073,1049,1086,998,1062,974,1003,974,964" href="#" onclick="showCenter(event)">
-
+      <area shape="poly" coords="1652,1190,1546,1149,1457,1128,1365,1096,1264,1064,1196,1037,1200,992,1204,945,1295,915,1414,877,1501,848,1591,824,1655,805,1729,828,1791,858,1859,896,1903,935,1941,984,1926,1022,1852,1086,1744,1151,1684,1181" href="#" onclick="handleClick(event,1)">
+      <area shape="poly" coords="1172,1081,1189,1062,1244,1068,1304,1083,1376,1115,1425,1128,1502,1145,1578,1181,1640,1196,1688,1247,1714,1300,1735,1353,1757,1427,1763,1481,1691,1500,1638,1498,1576,1495,1495,1491,1421,1444,1366,1372,1306,1298,1232,1190,1178,1137,1155,1098" href="#" onclick="handleClick(event,2)">
+      <area shape="poly" coords="1195,1175,1230,1219,1263,1258,1295,1300,1334,1347,1368,1391,1404,1449,1425,1502,1423,1583,1408,1631,1399,1693,1363,1744,1346,1769,1295,1759,1227,1718,1174,1674,1132,1638,1089,1595,1074,1515,1072,1444,1070,1351,1064,1291,1068,1194,1072,1119,1100,1109,1144,1094" href="#" onclick="handleClick(event,3)">
+      <area shape="poly" coords="1059,1124,1062,1192,1051,1262,1055,1326,1061,1368,1061,1430,1066,1508,1068,1549,1049,1595,1025,1640,977,1691,898,1740,823,1776,772,1704,741,1616,724,1523,736,1476,790,1398,858,1300,919,1217,964,1153,1006,1107,1030,1109" href="#" onclick="handleClick(event,4)">
+      <area shape="poly" coords="972,1060,987,1081,987,1109,917,1198,857,1270,800,1345,747,1434,707,1481,562,1512,498,1512,430,1512,390,1498,390,1438,405,1360,430,1285,469,1211,515,1187,649,1149,753,1107,874,1062,949,1043" href="#" onclick="handleClick(event,5)">
+      <area shape="poly" coords="456,1177,364,1128,265,1064,207,996,228,958,296,896,358,852,433,822,498,809,569,830,647,848,743,884,826,915,898,939,953,954,953,994,955,1024,809,1069,736,1100,620,1136,517,1177" href="#" onclick="handleClick(event,6)">
+      <area shape="poly" coords="458,754,413,684,392,595,386,514,399,487,464,480,522,486,602,482,673,508,721,531,762,595,809,654,836,701,879,752,919,805,955,856,983,892,951,935,836,899,677,845,520,795,479,773" href="#" onclick="handleClick(event,7)">
+      <area shape="poly" coords="960,841,909,771,851,684,772,573,719,499,715,418,726,338,762,257,794,208,857,223,938,270,991,316,1061,393,1062,457,1059,574,1057,678,1057,767,1062,835,1053,864,1004,884" href="#" onclick="handleClick(event,8)">
+      <area shape="poly" coords="1072,854,1072,760,1077,625,1083,501,1074,399,1123,340,1193,280,1247,249,1312,217,1340,212,1374,272,1402,350,1419,419,1429,484,1419,522,1336,625,1240,758,1181,845,1145,890,1079,864" href="#" onclick="handleClick(event,9)">
+      <area shape="poly" coords="1164,888,1217,814,1306,703,1385,584,1453,501,1542,472,1659,459,1735,469,1756,480,1752,542,1737,641,1695,727,1655,790,1544,824,1425,862,1300,903,1200,935" href="#" onclick="handleClick(event,10)">
+      <area shape="poly" coords="994,935,1025,905,1077,894,1115,907,1159,935,1176,984,1159,1032,1121,1073,1049,1086,998,1062,974,1003,974,964" href="#" onclick="showCenter(event)">
     </map>
-</div>
+  </div>
 
-<div id="step3" style="display: none;">
-    <div id="resultBox"></div>
-    <button id="resetBtn" onclick="resetApp()">ಮತ್ತೊಂದು ಪ್ರಶ್ನೆ ಕೇಳಿ (Try different Question)</button>
+  <!-- STEP 3 -->
+  <div id="step3" style="display:none;">
+    <div class="result-card">
+      <div class="result-label" id="resultLabel">ಫಲಿತಾಂಶ</div>
+      <div id="resultBox"></div>
+    </div>
+    <button id="resetBtn" onclick="resetApp()">ಮತ್ತೊಂದು ಪ್ರಶ್ನೆ ಕೇಳಿ</button>
+  </div>
+
+  <p class="disclaimer">📜 Disclaimer: This app is for educational purposes only. Not for commercial use.</p>
+  <div class="footer-deco">❋ श्री ❋ श्री ❋</div>
+</main>
+
+<!-- INSTALL POPUP -->
+<div id="installPopup">
+  <h3>📱 App Install</h3>
+  <p id="installDesc">Prashna Chakra ని మీ Home Screen కు Add చేయండి!</p>
+  <div class="install-btns">
+    <button id="btnInstall">Install</button>
+    <button id="btnClosePopup">Later</button>
+  </div>
 </div>
 
 <script>
-
 let database = [];
+let chakraInteractEnabled = false;
 let currentSelectedQNo = "";
 let resizeMapFunc = null;
 let currentLang = 'kn';
@@ -153,226 +469,247 @@ let currentSelectedKarakaNo = null;
 let centerClicked = false;
 
 const translations = {
-    kn: {
-        title: "ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ",
-        select: "-- ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಆರಿಸಿ --",
-        inst1: "👉 ಭಗವಂತನನ್ನು ಸ್ಮರಿಸಿಕೊಂಡು ಈ ಕೆಳಗಿನ ಚಕ್ರದ ದಳಗಳ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
-        inst2: "👉 ಪ್ರತಿಯೊಂದು ದಳವು ವಿಭಿನ್ನ ಫಲಿತಾಂಶವನ್ನು ನೀಡುತ್ತದೆ.",
-        reset: "ಮತ್ತೊಂದು ಪ್ರಶ್ನೆ ಕೇಳಿ",
-        resultLbl: "ಫಲಿತಾಂಶ:",
-        noResult: "⚠️ ಫಲಿತಾಂಶ ಲಭ್ಯವಿಲ್ಲ",
-        qNo: "ಪ್ರಶ್ನೆ ಸಂಖ್ಯೆ:"
-    },
-    te: {
-        title: "శ్రీ ప్రశ్నా చక్రం",
-        select: "-- మీ ప్రశ్నను ఎంచుకోండి --",
-        inst1: "👉 భగవంతుని స్మరించుకుని ఈ క్రింది చక్ర దళాలపై క్లిక్ చేయండి.",
-        inst2: "👉 ప్రతి దళం విభిన్న ఫలితాన్ని ఇస్తుంది.",
-        reset: "మరొక ప్రశ్న అడగండి",
-        resultLbl: "ఫలితం:",
-        noResult: "⚠️ ఫలితం అందుబాటులో లేదు",
-        qNo: "ప్రశ్న సంఖ్య:"
-    },
-    en: {
-        title: "Sri Prashna Chakra",
-        select: "-- Select your question --",
-        inst1: "👉 Remember the Almighty and click on the petals of the chakra below.",
-        inst2: "👉 Each petal gives a different result.",
-        reset: "Ask another question",
-        resultLbl: "Result:",
-        noResult: "⚠️ Result not available",
-        qNo: "Question No:"
-    },
-    sa: {
-        title: "श्री प्रश्न चक्रम्",
-        select: "-- भवतः प्रश्नं चिनोतु --",
-        inst1: "👉 भगवन्तं स्मृत्वा अधः चक्रस्य दलेषु नुदन्तु।",
-        inst2: "👉 एकैकं दलं भिन्नं फलं ददाति।",
-        reset: "अन्यं प्रश्नं पृच्छतु",
-        resultLbl: "परिणाम:",
-        noResult: "⚠️ परिणामः न लभ्यते",
-        qNo: "प्रश्नसङ्ख्या:"
-    }
+  kn: {
+    title: "ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ",
+    select: "-- ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಆರಿಸಿ --",
+    inst1: "ಭಗವಂತನನ್ನು ಸ್ಮರಿಸಿಕೊಂಡು ಈ ಕೆಳಗಿನ ಚಕ್ರದ ದಳಗಳ ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ.",
+    inst2: "ಪ್ರತಿಯೊಂದು ದಳವು ವಿಭಿನ್ನ ಫಲಿತಾಂಶವನ್ನು ನೀಡುತ್ತದೆ.",
+    reset: "ಮತ್ತೊಂದು ಪ್ರಶ್ನೆ ಕೇಳಿ",
+    resultLbl: "ಫಲಿತಾಂಶ",
+    noResult: "⚠️ ಫಲಿತಾಂಶ ಲಭ್ಯವಿಲ್ಲ",
+    qNo: "ಪ್ರಶ್ನೆ ಸಂಖ್ಯೆ:",
+    tapHint: "👆 ಚಕ್ರದ ದಳದ ಮೇಲೆ ಸ್ಪರ್ಶಿಸಿ",
+    selectLabel: "ಪ್ರಶ್ನೆ ಆರಿಸಿ"
+  },
+  te: {
+    title: "శ్రీ ప్రశ్నా చక్రం",
+    select: "-- మీ ప్రశ్నను ఎంచుకోండి --",
+    inst1: "భగవంతుని స్మరించుకుని ఈ క్రింది చక్ర దళాలపై క్లిక్ చేయండి.",
+    inst2: "ప్రతి దళం విభిన్న ఫలితాన్ని ఇస్తుంది.",
+    reset: "మరొక ప్రశ్న అడగండి",
+    resultLbl: "ఫలితం",
+    noResult: "⚠️ ఫలితం అందుబాటులో లేదు",
+    qNo: "ప్రశ్న సంఖ్య:",
+    tapHint: "👆 చక్ర దళంపై తాకండి",
+    selectLabel: "ప్రశ్న ఎంచుకోండి"
+  },
+  en: {
+    title: "Sri Prashna Chakra",
+    select: "-- Select your question --",
+    inst1: "Remember the Almighty and click on the petals of the chakra below.",
+    inst2: "Each petal gives a different result.",
+    reset: "Ask another question",
+    resultLbl: "Result",
+    noResult: "⚠️ Result not available",
+    qNo: "Question No:",
+    tapHint: "👆 Tap on a chakra petal",
+    selectLabel: "Choose Question"
+  },
+  sa: {
+    title: "श्री प्रश्न चक्रम्",
+    select: "-- भवतः प्रश्नं चिनोतु --",
+    inst1: "भगवन्तं स्मृत्वा अधः चक्रस्य दलेषु नुदन्तु।",
+    inst2: "एकैकं दलं भिन्नं फलं ददाति।",
+    reset: "अन्यं प्रश्नं पृच्छतु",
+    resultLbl: "परिणाम",
+    noResult: "⚠️ परिणामः न लभ्यते",
+    qNo: "प्रश्नसङ्ख्या:",
+    tapHint: "👆 चक्रदलं स्पृशतु",
+    selectLabel: "प्रश्नं चिनोतु"
+  }
 };
 
 function populateDropdown() {
-    const select = document.getElementById('chakraSelect');
-    const defaultOpt = document.getElementById('defaultSelectOpt');
-    const selectedValue = select.value;
-    
-    select.innerHTML = '';
-    select.appendChild(defaultOpt);
-    
-    const seenQnos = new Set();
-    
-    database.forEach(item => {
-        if(item.Q_no && !seenQnos.has(item.Q_no)) {
-            seenQnos.add(item.Q_no);
-            const opt = document.createElement('option');
-            opt.value = item.Q_no;
-            opt.textContent = item.Q_no + ". " + (item.Chakra_Name[currentLang] || item.Chakra_Name['kn']);
-            select.appendChild(opt);
-        }
-    });
-    
-    select.value = selectedValue;
-    if(currentSelectedQNo) {
-        const selectedOption = select.options[select.selectedIndex];
-        if (selectedOption) {
-            document.getElementById("chakraTitle").innerText = selectedOption.text.split('. ')[1] || selectedOption.text;
-        }
+  const select = document.getElementById('chakraSelect');
+  const defaultOpt = document.getElementById('defaultSelectOpt');
+  const selectedValue = select.value;
+  select.innerHTML = '';
+  select.appendChild(defaultOpt);
+  const seenQnos = new Set();
+  database.forEach(item => {
+    if (item.Q_no && !seenQnos.has(item.Q_no)) {
+      seenQnos.add(item.Q_no);
+      const opt = document.createElement('option');
+      opt.value = item.Q_no;
+      opt.textContent = item.Q_no + ". " + (item.Chakra_Name[currentLang] || item.Chakra_Name['kn']);
+      select.appendChild(opt);
     }
+  });
+  select.value = selectedValue;
+  if (currentSelectedQNo) {
+    const sel = select.options[select.selectedIndex];
+    if (sel) document.getElementById("chakraTitle").innerText = sel.text.split('. ')[1] || sel.text;
+  }
 }
 
 function changeLanguage(lang) {
-    currentLang = lang;
-    document.documentElement.lang = lang;
-    
-    if(!currentSelectedQNo) {
-        document.getElementById("chakraTitle").innerText = translations[lang].title;
-    }
-    document.getElementById("defaultSelectOpt").innerText = translations[lang].select;
-    document.getElementById("instLine1").innerText = translations[lang].inst1;
-    document.getElementById("instLine2").innerText = translations[lang].inst2;
-    document.getElementById("resetBtn").innerText = translations[lang].reset;
-    
-    if(database.length > 0) {
-        populateDropdown();
-    }
-    
-    if(currentSelectedQNo && currentSelectedKarakaNo !== null) {
-        handleClick(new Event('click'), currentSelectedKarakaNo, false);
-    } else if(currentSelectedQNo && centerClicked) {
-        showCenter(new Event('click'), false);
-    }
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  const t = translations[lang];
+  if (!currentSelectedQNo) document.getElementById("chakraTitle").innerText = t.title;
+  document.getElementById("defaultSelectOpt").innerText = t.select;
+  document.getElementById("instLine1").innerText = t.inst1;
+  document.getElementById("instLine2").innerText = t.inst2;
+  document.getElementById("resetBtn").innerText = t.reset;
+  document.getElementById("tapHint").innerText = t.tapHint;
+  document.getElementById("selectLabel").innerText = t.selectLabel;
+  document.getElementById("resultLabel").innerText = t.resultLbl;
+  if (database.length > 0) populateDropdown();
+  if (currentSelectedQNo && currentSelectedKarakaNo !== null) handleClick(new Event('click'), currentSelectedKarakaNo, false);
+  else if (currentSelectedQNo && centerClicked) showCenter(new Event('click'), false);
 }
 
-// యూజర్ ప్రశ్నను ఎంచుకున్నప్పుడు
-document.getElementById('chakraSelect').addEventListener('change', function() {
-    currentSelectedQNo = this.value;
-    const title = document.getElementById("chakraTitle");
-    
-    if(currentSelectedQNo) {
-        title.innerText = this.options[this.selectedIndex].text.split('. ')[1] || this.options[this.selectedIndex].text;
-        document.getElementById('step1').style.display = 'none';
-        document.getElementById('step2').style.display = 'block';
-        document.getElementById('step3').style.display = 'none';
-        
-        // ఇమేజ్ కనిపించిన తర్వాత కోఆర్డినేట్స్ క్యాలిక్యులేట్ చేయడానికి
-        if (resizeMapFunc) {
-            setTimeout(resizeMapFunc, 50);
-        }
-    }
+function startChakraSpinSequence() {
+  const img = document.getElementById('chakraImage');
+  const tapHint = document.getElementById('tapHint');
+  const areas = document.querySelectorAll('map[name="image-map"] area');
+
+  chakraInteractEnabled = false;
+  img.classList.add('spin-animation');
+  tapHint.textContent = "♻️ ಚಕ್ರం 5 ಸೆಕೆಂಡುಗಳ ಕಾಲ తిప్పుతోంది... దయచేసి వేచి ఉండు";
+  areas.forEach(area => area.style.pointerEvents = 'none');
+
+  setTimeout(() => {
+    img.classList.remove('spin-animation');
+    img.style.transform = 'rotate(0deg)';
+    chakraInteractEnabled = true;
+    areas.forEach(area => area.style.pointerEvents = 'auto');
+    tapHint.textContent = translations[currentLang].tapHint;
+  }, 5000);
+}
+
+document.getElementById('chakraSelect').addEventListener('change', function () {
+  currentSelectedQNo = this.value;
+  if (currentSelectedQNo) {
+    document.getElementById("chakraTitle").innerText =
+      this.options[this.selectedIndex].text.split('. ')[1] || this.options[this.selectedIndex].text;
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+    document.getElementById('step3').style.display = 'none';
+    if (resizeMapFunc) setTimeout(resizeMapFunc, 50);
+    startChakraSpinSequence();
+  } else {
+    chakraInteractEnabled = false;
+  }
 });
 
 function resetApp() {
-    document.getElementById('step1').style.display = 'block';
-    document.getElementById('step2').style.display = 'none';
-    document.getElementById('step3').style.display = 'none';
-    document.getElementById('chakraTitle').innerText = translations[currentLang].title;
-    document.getElementById('chakraSelect').value = "";
-    currentSelectedQNo = "";
-    currentSelectedKarakaNo = null;
-    centerClicked = false;
+  document.getElementById('step1').style.display = 'block';
+  document.getElementById('step2').style.display = 'none';
+  document.getElementById('step3').style.display = 'none';
+  document.getElementById('chakraTitle').innerText = translations[currentLang].title;
+  document.getElementById('chakraSelect').value = "";
+  currentSelectedQNo = ""; currentSelectedKarakaNo = null; centerClicked = false;
+  chakraInteractEnabled = false;
+  const img = document.getElementById('chakraImage');
+  img.classList.remove('spin-animation');
+  img.style.transform = 'rotate(0deg)';
+  document.getElementById('tapHint').textContent = translations[currentLang].tapHint;
+  document.querySelectorAll('map[name="image-map"] area').forEach(area => area.style.pointerEvents = 'none');
 }
 
 function handleClick(event, num, changeStep = true) {
-    event.preventDefault(); // 🔥 VERY IMPORTANT
-    const resultBox = document.getElementById("resultBox");
-    currentSelectedKarakaNo = num;
-    centerClicked = false;
-    
-    if (!currentSelectedQNo) return;
-
-    // యూజర్ ఎంచుకున్న ప్రశ్న, మరియు క్లిక్ చేసిన దళం నంబర్ బట్టి వెతకడం
-    const resultRow = database.find(item => item.Q_no === currentSelectedQNo && parseInt(item.karaka_no) === num);
-    
-    if (resultRow) {
-        const karakaName = resultRow.karaka_name[currentLang] || resultRow.karaka_name['kn'];
-        const chakraResult = resultRow.chakra_result[currentLang] || resultRow.chakra_result['kn'];
-        resultBox.innerHTML = `<strong>${translations[currentLang].resultLbl}</strong><br><br><span style="color:#b33939; font-weight:bold;">${karakaName}</span>: ${chakraResult}`;
-    } else {
-        resultBox.innerHTML = `⚠️ ${translations[currentLang].noResult}`;
-    }
-
-    if (changeStep) {
-        document.getElementById('step2').style.display = 'none';
-        document.getElementById('step3').style.display = 'block';
-    }
+  event.preventDefault();
+  if (!chakraInteractEnabled) {
+    return;
+  }
+  currentSelectedKarakaNo = num; centerClicked = false;
+  if (!currentSelectedQNo) return;
+  const resultRow = database.find(
+    item => item.Q_no === currentSelectedQNo && parseInt(item.karaka_no) === num
+  );
+  const resultBox = document.getElementById("resultBox");
+  if (resultRow) {
+    const karakaName = resultRow.karaka_name[currentLang] || resultRow.karaka_name['kn'];
+    const chakraResult = resultRow.chakra_result[currentLang] || resultRow.chakra_result['kn'];
+    resultBox.innerHTML = `<strong>${karakaName}</strong><span>${chakraResult}</span>`;
+  } else {
+    resultBox.innerHTML = translations[currentLang].noResult;
+  }
+  if (changeStep) {
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step3').style.display = 'block';
+  }
 }
 
 function showCenter(event, changeStep = true) {
-    event.preventDefault();
-    currentSelectedKarakaNo = null;
-    centerClicked = true;
-    if (currentSelectedQNo) {
-        document.getElementById("resultBox").innerHTML = `<strong>${translations[currentLang].qNo}</strong> ` + currentSelectedQNo;
-        if (changeStep) {
-            document.getElementById('step2').style.display = 'none';
-            document.getElementById('step3').style.display = 'block';
-        }
-    }
+  event.preventDefault();
+  if (!chakraInteractEnabled) {
+    return;
+  }
+
+  currentSelectedKarakaNo = null;
+  centerClicked = true;
+
+  // Center click should always spin for 5 seconds.
+  startChakraSpinSequence();
+
+  setTimeout(() => {
+    if (!currentSelectedQNo) return;
+
+    // Do not display Q_no per new requirement; clear result content.
+    document.getElementById("resultBox").innerHTML = "";
+
+    // keep the user on step2 (do not automatically go to result screen)
+    // no step2/step3 swap for center press
+  }, 5000);
 }
 
-// Service Worker Registration for PWA
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('Service Worker registered successfully.'))
-            .catch(err => console.error('Service Worker registration failed:', err));
-    });
-}
-
-// JSON ఫైల్ నుండి డేటాబేస్ లోడ్ చేయడం
 async function loadData() {
-    try {
-        // Cache-busting query parameter to prevent loading old data
-        const response = await fetch(`data.json?v=${new Date().getTime()}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        database = await response.json();
-        populateDropdown();
-    } catch (error) {
-        console.error("Error loading JSON:", error);
-        document.getElementById("resultBox").innerHTML = "⚠️ ಡೇಟಾಬೇಸ್ ಲೋಡ್ ಆಗಿಲ್ಲ. ದಯವಿಟ್ಟು ಸರ್ವರ್ ಬಳಸಿ.";
-    }
+  try {
+    const response = await fetch(`data.json?v=${new Date().getTime()}`);
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    database = await response.json();
+    populateDropdown();
+  } catch (error) {
+    console.error("Error loading JSON:", error);
+    document.getElementById("resultBox").innerHTML = "⚠️ ಡೇಟಾಬೇಸ್ ಲೋಡ್ ಆಗಿಲ್ಲ.";
+  }
 }
 
-// ఇమేజ్ సైజు మారినప్పుడు కోఆర్డినేట్స్ కూడా ఆటోమేటిక్ గా మారడానికి (Responsive Image Map)
-window.addEventListener('load', function() {
-    loadData(); // డేటాబేస్ లోడ్ చేయడం
-    changeLanguage(currentLang); // Set default language UI text
-
-    const img = document.getElementById('chakraImage');
-    const areas = document.querySelectorAll('map[name="image-map"] area');
-    
-    // ఒరిజినల్ కోఆర్డినేట్స్ ని స్టోర్ చేసుకోవడం
+window.addEventListener('load', function () {
+  loadData();
+  changeLanguage(currentLang);
+  const img = document.getElementById('chakraImage');
+  const areas = document.querySelectorAll('map[name="image-map"] area');
+  areas.forEach(area => { area.dataset.originalCoords = area.coords; });
+  function resizeMap() {
+    if (!img.naturalWidth || img.clientWidth === 0) return;
+    const scaleX = img.clientWidth / img.naturalWidth;
+    const scaleY = img.clientHeight / img.naturalHeight;
     areas.forEach(area => {
-        area.dataset.originalCoords = area.coords;
+      const coords = area.dataset.originalCoords.split(',');
+      area.coords = coords.map((c, i) => Math.round(c * (i % 2 === 0 ? scaleX : scaleY))).join(',');
     });
-
-    function resizeMap() {
-        if (!img.naturalWidth || img.clientWidth === 0) return; 
-        
-        const scaleX = img.clientWidth / img.naturalWidth;
-        const scaleY = img.clientHeight / img.naturalHeight;
-
-        areas.forEach(area => {
-            const coords = area.dataset.originalCoords.split(',');
-            const newCoords = coords.map((coord, index) => {
-                return Math.round(coord * (index % 2 === 0 ? scaleX : scaleY));
-            });
-            area.coords = newCoords.join(',');
-        });
-    }
-    resizeMapFunc = resizeMap;
-
-    resizeMap();
-    window.addEventListener('resize', resizeMap);
+  }
+  resizeMapFunc = resizeMap;
+  resizeMap();
+  areas.forEach(area => area.style.pointerEvents = 'none');
+  window.addEventListener('resize', resizeMap);
 });
 
-</script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(() => console.log('SW registered'))
+      .catch(err => console.error('SW failed:', err));
+  });
+}
 
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); deferredPrompt = e;
+  if (!localStorage.getItem('pwaPromptDismissed'))
+    document.getElementById('installPopup').style.display = 'block';
+});
+document.getElementById('btnInstall').addEventListener('click', async () => {
+  document.getElementById('installPopup').style.display = 'none';
+  if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; }
+});
+document.getElementById('btnClosePopup').addEventListener('click', () => {
+  document.getElementById('installPopup').style.display = 'none';
+  localStorage.setItem('pwaPromptDismissed', 'true');
+});
+</script>
 </body>
 </html>
