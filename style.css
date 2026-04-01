@@ -1,0 +1,98 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4ece1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+h1 {
+    color: #b33939;
+    margin-bottom: 20px;
+}
+.image-container img {
+    width: 100%;
+    max-width: 350px;
+    margin: 20px 0;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+button {
+    background-color: #ff9f43;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 10px;
+}
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+.karaka-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 10px 0 25px 0;
+}
+.karaka-btn {
+    background-color: #fff;
+    color: #b33939;
+    border: 2px solid #ff9f43;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px; /* రౌండ్ గా కనిపించడానికి */
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    width: auto;
+    margin-top: 0;
+}
+.karaka-btn:hover, .karaka-btn.active {
+    background-color: #ff9f43;
+    color: #fff;
+}
+.result-box {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #fff;
+    border-left: 5px solid #218c74;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: #218c74;
+    font-size: 18px;
+    line-height: 1.5;
+}
+.hidden {
+    display: none;
+}
