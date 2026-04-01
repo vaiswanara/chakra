@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prashna-chakra-v10.0.1';
+const CACHE_NAME = 'prashna-chakra-v10.0.5';
 const urlsToCache = [
     './',
     './index.html',
@@ -18,7 +18,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.match(event.request, { ignoreSearch: true })
+        caches.match(event.request)
             .then(response => response || fetch(event.request))
     );
 });

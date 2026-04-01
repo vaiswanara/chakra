@@ -11,195 +11,73 @@
 <style>
 body {
     text-align: center;
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-    min-height: 100vh;
-    margin: 0;
-    padding-bottom: 40px;
-    color: #333;
-}
-
-#chakraTitle {
-    color: #b33939;
-    font-size: 28px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    font-family: Arial;
+    background: #f5f5f5;
 }
 
 img {
-    display: block;
-    width: 100%;
-    max-width: 600px;
-    height: auto;
+    width: 600px;
     margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.15));
 }
 
 #resultBox {
     margin-top: 30px;
-    padding: 30px 20px;
-    width: 90%;
-    max-width: 600px;
-    box-sizing: border-box;
+    padding: 20px;
+    width: 60%;
     margin-left: auto;
     margin-right: auto;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    border-top: 5px solid #b33939;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
     font-size: 18px;
-    line-height: 1.6;
-    color: #2c3e50;
+    line-height: 1.5;
 }
 
 select {
-    padding: 14px 16px;
+    padding: 12px;
     font-size: 16px;
-    margin: 15px auto 20px auto;
+    margin: 10px 0 20px 0;
     width: 80%;
     max-width: 400px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    background-color: white;
-    color: #495057;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    border-radius: 5px;
+    border: 1px solid #ccc;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: block;
-}
-
-select:focus {
-    outline: none;
-    border-color: #b33939;
-    box-shadow: 0 0 0 3px rgba(179, 57, 57, 0.15);
 }
 
 #resetBtn {
-    margin-top: 25px;
-    padding: 14px 28px;
+    margin-top: 20px;
+    padding: 12px 24px;
     font-size: 16px;
-    background: linear-gradient(135deg, #b33939 0%, #992f2f 100%);
+    background-color: #b33939;
     color: white;
-    width: 90%;
-    max-width: 350px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    box-shadow: 0 4px 10px rgba(179, 57, 57, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #resetBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(179, 57, 57, 0.4);
-}
-
-#resetBtn:active {
-    transform: translateY(1px);
+    background-color: #8f2d2d;
 }
 
 #instructionText {
-    font-size: 16px;
-    color: #444;
-    background: white;
-    display: inline-block;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    font-size: 18px;
+    color: #b33939;
+    font-weight: bold;
     margin-bottom: 10px;
-    padding: 15px 20px;
-    max-width: 90%;
-    box-sizing: border-box;
 }
 
 #langSelector {
     text-align: right;
-    padding: 15px 20px 0;
+    padding: 10px 20px;
 }
 
 #langSelect {
-    padding: 8px 12px;
+    padding: 8px;
     font-size: 14px;
     width: auto;
-    margin: 0 0 0 auto;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    display: inline-block;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-#step1, #step2, #step3 {
-    animation: fadeIn 0.4s ease-out;
-}
-
-#disclaimer {
-    font-size: 13px;
-    color: #7f8c8d;
-    margin-top: 50px;
-    padding: 15px 20px;
-    text-align: center;
-}
-
-#installPopup {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-    border-top: 5px solid #b33939;
-    animation: fadeIn 0.5s ease-out;
-}
-
-#installPopup h3 {
-    margin: 0 0 10px 0;
-    color: #b33939;
-}
-
-#installPopup p {
-    margin: 0 0 15px 0;
-    color: #444;
-    font-size: 14px;
-}
-
-.install-btns {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.install-btns button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.2s ease;
-}
-
-#btnInstall {
-    background: linear-gradient(135deg, #b33939 0%, #992f2f 100%);
-    color: white;
-}
-
-#btnClosePopup {
-    background: #eee;
-    color: #333;
+    margin: 0;
+    border-radius: 5px;
 }
 </style>
 </head>
@@ -263,18 +141,6 @@ select:focus {
 <div id="step3" style="display: none;">
     <div id="resultBox"></div>
     <button id="resetBtn" onclick="resetApp()">ಮತ್ತೊಂದು ಪ್ರಶ್ನೆ ಕೇಳಿ (Try different Question)</button>
-</div>
-<div id="installPopup">
-    <h3 id="installTitle">📱 Install App</h3>
-    <p id="installDesc">Add Prashna Chakra to your home screen for quick access!</p>
-    <div class="install-btns">
-        <button id="btnInstall">Install</button>
-        <button id="btnClosePopup">Later</button>
-    </div>
-</div>
-
-<div id="disclaimer">
-    Disclaimer: This app is used for educational purposes. Not for commercial use.
 </div>
 
 <script>
@@ -457,7 +323,6 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-
 // JSON ఫైల్ నుండి డేటాబేస్ లోడ్ చేయడం
 async function loadData() {
     try {
@@ -507,34 +372,6 @@ window.addEventListener('load', function() {
     window.addEventListener('resize', resizeMap);
 });
 
-// PWA Install Prompt Logic
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-    // బ్రౌజర్ ఆటోమేటిక్ గా ఇచ్చే డిఫాల్ట్ ప్రాంప్ట్ ఆపడం
-    e.preventDefault();
-    deferredPrompt = e;
-    
-    // ఒకవేళ యూజర్ ముందే "Later" నొక్కి ఉంటే పాపప్ చూపించవద్దు
-    if (!localStorage.getItem('pwaPromptDismissed')) {
-        document.getElementById('installPopup').style.display = 'block';
-    }
-});
-
-document.getElementById('btnInstall').addEventListener('click', async () => {
-    document.getElementById('installPopup').style.display = 'none';
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        console.log(`User response to the install prompt: ${outcome}`);
-        deferredPrompt = null;
-    }
-});
-
-document.getElementById('btnClosePopup').addEventListener('click', () => {
-    document.getElementById('installPopup').style.display = 'none';
-    // మళ్ళీ అడగకుండా localStorage లో సేవ్ చేయడం
-    localStorage.setItem('pwaPromptDismissed', 'true');
-});
 </script>
 
 </body>
