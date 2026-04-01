@@ -1,6 +1,6 @@
 {
-  "name": "e-CHAKRA - Traditional Prashna Tool",
-  "short_name": "e-CHAKRA",
+  "name": "e-PRASHNA - Traditional Prashna Tool",
+  "short_name": "e-PRASHNA",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
