@@ -369,10 +369,6 @@ body {
 <body>
 
 <header class="site-header">
-  <div class="logo-wrap">
-    <img src="./icon/logo.png" alt="ಶ್ರೀ ಪ್ರಶ್ನಾ ಚಕ್ರ ಲೋಗೋ" loading="lazy" />
-  </div>
-  <div class="header-deco-top">❋ श्री ❋ श्री ❋ श्री ❋ ಶ್ರೀ ❋ श्री ❋</div>
   <div class="header-inner">
     <div style="width:52px"></div>
     <div class="header-center">
@@ -461,6 +457,7 @@ body {
 
 <script>
 let database = [];
+let questionsData = [];
 let chakraInteractEnabled = false;
 let currentSelectedQNo = "";
 let resizeMapFunc = null;
@@ -525,16 +522,14 @@ function populateDropdown() {
   const selectedValue = select.value;
   select.innerHTML = '';
   select.appendChild(defaultOpt);
-  const seenQnos = new Set();
-  database.forEach(item => {
-    if (item.Q_no && !seenQnos.has(item.Q_no)) {
-      seenQnos.add(item.Q_no);
-      const opt = document.createElement('option');
-      opt.value = item.Q_no;
-      opt.textContent = item.Q_no + ". " + (item.Chakra_Name[currentLang] || item.Chakra_Name['kn']);
-      select.appendChild(opt);
-    }
+  
+  questionsData.forEach(item => {
+    const opt = document.createElement('option');
+    opt.value = item.Q_no;
+    opt.textContent = item.Q_no + ". " + (item.Chakra_Name[currentLang] || item.Chakra_Name['kn']);
+    select.appendChild(opt);
   });
+  
   select.value = selectedValue;
   if (currentSelectedQNo) {
     const sel = select.options[select.selectedIndex];
@@ -657,9 +652,18 @@ function showCenter(event, changeStep = true) {
 
 async function loadData() {
   try {
-    const response = await fetch(`data.json?v=${new Date().getTime()}`);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    database = await response.json();
+    // Load questions and data in parallel for faster performance
+    const [questionsResponse, dataResponse] = await Promise.all([
+      fetch(`Questions.json?v=${new Date().getTime()}`),
+      fetch(`data.json?v=${new Date().getTime()}`)
+    ]);
+    
+    if (!questionsResponse.ok) throw new Error(`Failed to load Questions.json`);
+    if (!dataResponse.ok) throw new Error(`Failed to load data.json`);
+    
+    questionsData = await questionsResponse.json();
+    database = await dataResponse.json();
+    
     populateDropdown();
   } catch (error) {
     console.error("Error loading JSON:", error);
