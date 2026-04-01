@@ -1,4 +1,4 @@
-const CACHE_NAME = 'prashna-chakra-v2';
+const CACHE_NAME = 'prashna-chakra-v10.0.1';
 const urlsToCache = [
     './',
     './index.html',

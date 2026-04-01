@@ -16,14 +16,18 @@ body {
 }
 
 img {
-    width: 600px;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
     margin-top: 20px;
 }
 
 #resultBox {
     margin-top: 30px;
     padding: 20px;
-    width: 60%;
+    width: 90%;
+    max-width: 600px;
+    box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
     background: white;
@@ -39,6 +43,7 @@ select {
     margin: 10px 0 20px 0;
     width: 80%;
     max-width: 400px;
+    box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid #ccc;
     cursor: pointer;
@@ -50,6 +55,8 @@ select {
     font-size: 16px;
     background-color: #b33939;
     color: white;
+    width: 90%;
+    max-width: 350px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -61,10 +68,11 @@ select {
 }
 
 #instructionText {
-    font-size: 18px;
+    font-size: 16px;
     color: #b33939;
     font-weight: bold;
     margin-bottom: 10px;
+    padding: 0 15px;
 }
 
 #langSelector {
